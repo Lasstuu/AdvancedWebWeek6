@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import { IOffer, Offer } from "./models/Offers"
+import { IOffer, Offer } from "./models/Offer"
 
 
 const router:Router = Router()
