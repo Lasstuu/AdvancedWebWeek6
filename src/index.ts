@@ -24,6 +24,7 @@ router.post("/upload", async (req:Request, res:Response)=>{
             description: description
         })
         await offer.save();
+        res.status(200);
     }catch(error:any){
         console.error(`Error saving user: ${error}`)
 
