@@ -4,15 +4,15 @@ interface IOffer extends Document{
     title: string;
     description: string;
     price: number;
-    
+    imageId: string;
     
 }
 
 let offerSchema:Schema = new Schema({
     title: {type: String},
     description: {type: String},
-    price: {type: Number}
-    
+    price: {type: Number},
+    imageId: {type: String}
 
 })
 
