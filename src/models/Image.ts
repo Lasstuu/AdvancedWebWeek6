@@ -8,7 +8,7 @@ interface IImage extends Document {
 }
 
 let imageSchema:Schema = new Schema({
-    title: {type: String},
+    filename: {type: String},
     path: {type: String},
     //_id: {type: Schema.Types.ObjectId}
 

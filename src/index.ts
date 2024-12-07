@@ -24,26 +24,26 @@ router.post("/upload", upload.single("image"), async (req:Request, res:Response)
             const offer:IOffer = new Offer({
                 title: req.body.title,
                 price: req.body.price,
-                description: req.body.description,
+                description: req.body.description
                 
             })
             await offer.save();
             res.status(201).json({message: "Offer saved succesfully"});
         }else{
-        const image:IImage = new Image({
-            filename: req.file.filename,
-            path: req.file.path
-        })
-        await image.save();
-        const offer:IOffer = new Offer({
-            title: req.body.title,
-            price: req.body.price,
-            description: req.body.description,
-            imageId: image._id
-        })
+            const image:IImage = new Image({
+                filename: req.file.filename,
+                path: req.file.path
+            })
+            await image.save();
+            const offer:IOffer = new Offer({
+                title: req.body.title,
+                price: req.body.price,
+                description: req.body.description,
+                imageId: image._id
+            })
 
-        await offer.save();
-        res.status(201).json({message: "Offer saved succesfully with image"});
+            await offer.save();
+            res.status(201).json({message: "Offer saved succesfully with image"});
         }
     }catch(error:any){
         console.error(`Error saving user: ${error}`)
