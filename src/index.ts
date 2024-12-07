@@ -21,7 +21,14 @@ router.post("/upload", upload.single("image"), async (req:Request, res:Response)
     //console.log(title, price, description);
     try{
         if(!req.file){
-            res.status(400).json({message: "No file uploaded"})
+            const offer:IOffer = new Offer({
+                title: req.body.title,
+                price: req.body.price,
+                description: req.body.description,
+                
+            })
+            await offer.save();
+            res.status(201).json({message: "Offer saved succesfully"});
         }else{
         const imgPath:string = req.file.path.replace("public", "")
         const image:IImage = new Image({
@@ -37,7 +44,7 @@ router.post("/upload", upload.single("image"), async (req:Request, res:Response)
         })
 
         await offer.save();
-        res.status(201).json({message: "Offer saved succesfully"});
+        res.status(201).json({message: "Offer saved succesfully with image"});
         }
     }catch(error:any){
         console.error(`Error saving user: ${error}`)
