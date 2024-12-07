@@ -41,19 +41,30 @@ async function fetchOffers(){
             
             listDataJson.forEach(offer => {
                 const listElement = document.createElement("div")
-                listElement.className = "offerDiv"
-                const listTitle = document.createElement("p")
+                listElement.className = "offerDiv col s12 m6 l4"
+                const cardDiv = document.createElement("div")
+                cardDiv.className = "card hoverable"
+                const imageDiv = document.createElement("div")
+                imageDiv.className = "card-image"
+                const pElementDiv = document.createElement("div")
+                pElementDiv.className = "card-content"
+                const listTitle = document.createElement("span")
+                listTitle.className = "card-title"
                 const listDescription = document.createElement("p")
                 const listPrice = document.createElement("p")
                 const listImage = document.createElement("img")
+                listImage.className = "responsive-img"
                 listTitle.textContent = offer.title
                 listDescription.textContent = offer.description
                 listPrice.textContent = offer.price
                 listImage.src = `http://localhost:3000/${offer.imagePath}`
-                listElement.appendChild(listTitle)
-                listElement.appendChild(listPrice)
-                listElement.appendChild(listDescription)
-                listElement.appendChild(listImage)
+                imageDiv.appendChild(listImage)
+                imageDiv.appendChild(listTitle)
+                pElementDiv.appendChild(listDescription)
+                pElementDiv.appendChild(listPrice)
+                cardDiv.appendChild(imageDiv)
+                cardDiv.appendChild(pElementDiv)
+                listElement.appendChild(cardDiv)
                 divListElement.appendChild(listElement)
             });
     }
