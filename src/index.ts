@@ -24,10 +24,10 @@ router.post("/upload", async (req:Request, res:Response)=>{
             description: description
         })
         await offer.save();
-        res.status(200);
+        res.status(201).json({message: "Offer saved succesfully"});
     }catch(error:any){
         console.error(`Error saving user: ${error}`)
-
+        res.status(500).json({message: "Internal server error"})
     }
 })
 
