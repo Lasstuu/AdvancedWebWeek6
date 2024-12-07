@@ -18,7 +18,8 @@ router.post("/upload", upload.single("image"), async (req:Request, res:Response)
     // const price:number = req.body.price;
     // const description:string = req.body.description;
     // const image:File = req.body.image;
-    //console.log(title, price, description);
+    console.log("File received:", req.file)
+    console.log("Body received:", req.body)
     try{
         if(!req.file){
             const offer:IOffer = new Offer({
@@ -56,7 +57,6 @@ router.get("/offers", async (req:Request, res:Response) => {
     try{
         const imageList :IImage[] = await Image.find()
         const offersList :IOffer[] = await Offer.find()
-        console.log(offersList.length);
         if(offersList.length === 0){
             res.status(205).json({message: "No offers"})
         }else{

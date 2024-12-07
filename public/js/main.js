@@ -8,6 +8,8 @@ form.addEventListener("submit", async function(event){
     const descriptionInput = document.getElementById("description").value
     const priceInput = document.getElementById("price").value
     const imageInput = document.getElementById("image").files[0]
+    console.log(imageInput);
+    
     formData.append("title", titleInput)
     formData.append("description", descriptionInput)
     formData.append("price", priceInput)
@@ -15,7 +17,7 @@ form.addEventListener("submit", async function(event){
     console.log(titleInput, descriptionInput, priceInput, imageInput);
     try{
     const data = await fetch("/upload",{
-        method: "POST",
+        method: "post",
         body: formData
     })
     const messageText = await data.json()
@@ -32,7 +34,6 @@ async function fetchOffers(){
     try{
         const listData = await fetch("/offers")
         console.log(listData, listData.status);
-        
         if(listData.status === 205){
             console.log("no offers");    
         }else{
