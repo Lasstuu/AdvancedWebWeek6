@@ -1,5 +1,5 @@
 const form = document.getElementById("offerForm");
-
+const divListElement = document.getElementById("offersContainer")
 
 form.addEventListener("submit", async function(event){
     event.preventDefault()
@@ -17,19 +17,47 @@ form.addEventListener("submit", async function(event){
     const data = await fetch("/upload",{
         method: "POST",
         body: formData
-        // headers: {
-        //     "Content-Type": "application/json"
-        // },
-        // body: JSON.stringify({
-        //     title: titleInput,
-        //     description: descriptionInput,
-        //     price: priceInput,
-        //     image: imageInput
-        // })
     })
     const messageText = await data.json()
     }catch(error){
         console.log(error)
     }
-
+    fetchOffers()
 })
+document.addEventListener("DOMContentLoaded", fetchOffers())
+
+
+async function fetchOffers(){
+    divListElement.innerHTML = ""
+    try{
+        const listData = await fetch("/offers")
+        console.log(listData, listData.status);
+        
+        if(listData.status === 205){
+            console.log("no offers");    
+        }else{
+            const listDataJson = await listData.json()
+            console.log(listDataJson[0].title);
+            
+            listDataJson.forEach(offer => {
+                const listElement = document.createElement("div")
+                listElement.className = "offerDiv"
+                const listTitle = document.createElement("p")
+                const listDescription = document.createElement("p")
+                const listPrice = document.createElement("p")
+                const listImage = document.createElement("img")
+                listTitle.textContent = offer.title
+                listDescription.textContent = offer.description
+                listPrice.textContent = offer.price
+                listImage.src = `http://localhost:3000/${offer.imagePath}`
+                listElement.appendChild(listTitle)
+                listElement.appendChild(listPrice)
+                listElement.appendChild(listDescription)
+                listElement.appendChild(listImage)
+                divListElement.appendChild(listElement)
+            });
+    }
+    }catch(error){
+        console.log(error)
+    }
+}
