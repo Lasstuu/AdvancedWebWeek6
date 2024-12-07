@@ -30,10 +30,9 @@ router.post("/upload", upload.single("image"), async (req:Request, res:Response)
             await offer.save();
             res.status(201).json({message: "Offer saved succesfully"});
         }else{
-        const imgPath:string = req.file.path.replace("public", "")
         const image:IImage = new Image({
             filename: req.file.filename,
-            path: imgPath
+            path: req.file.path
         })
         await image.save();
         const offer:IOffer = new Offer({
