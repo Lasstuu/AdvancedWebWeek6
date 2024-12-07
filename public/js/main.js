@@ -18,5 +18,5 @@ form.addEventListener("submit", async function(){
             price: priceInput
         })
     })
-    
+    const messageText = await data.json()
 })
